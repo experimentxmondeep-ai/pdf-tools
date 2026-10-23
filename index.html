@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FastPDF - Sabse Tez PDF Tools</title>
+<meta name="description" content="JPG se PDF, PDF compress, background remover. 100% free, no watermark, no signup.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+  .checker{background:conic-gradient(#e5e7eb 25%,#fff 0 50%,#e5e7eb 0 75%,#fff 0) 0 0/16px 16px}
+  .drop.over{background:#eff6ff;border-color:#2563eb}
+  .tab-on{background:#dc2626;color:#fff}
+</style>
+</head>
+<body class="bg-white text-gray-800">
+
+<header class="border-b sticky top-0 bg-white z-10">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-1">
+    <div class="text-2xl font-extrabold"><span class="text-red-600">Fast</span><span class="text-blue-600">PDF</span></div>
+    <div class="text-xs sm:text-sm font-semibold text-gray-600">100% Free &bull; No Watermark &bull; Fast</div>
+  </div>
+</header>
+
+<section class="text-center px-4 py-10 bg-gradient-to-b from-red-50 to-white">
+  <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight">JPG Se PDF Banao - <span class="text-red-600">1 Click Me</span> <span class="block sm:inline text-blue-600">| No Signup</span></h1>
+  <p class="mt-3 text-gray-600">Sabse Tez PDF Tools - JPG to PDF, PDF Compress, Background Remover</p>
+  <p class="mt-3 inline-block bg-green-100 text-green-800 text-sm font-semibold px-4 py-1 rounded-full">🔒 100% Private - File server pe upload nahi hoti, sab kuch aapke browser me hota hai</p>
+</section>
+
+<main class="max-w-5xl mx-auto px-4 pb-16">
+  <div class="flex gap-2 justify-center flex-wrap mb-6" id="tabs">
+    <button data-t="t1" class="tab px-4 py-2 rounded-lg font-semibold border tab-on">JPG to PDF</button>
+    <button data-t="t2" class="tab px-4 py-2 rounded-lg font-semibold border">PDF Compress</button>
+    <button data-t="t3" class="tab px-4 py-2 rounded-lg font-semibold border">Background Remover</button>
+  </div>
+
+  <!-- TOOL 1 -->
+  <section id="t1" class="tool bg-white border rounded-2xl shadow-sm p-4 sm:p-6">
+    <h2 class="text-xl font-bold mb-3">JPG to PDF</h2>
+    <label class="drop block border-2 border-dashed rounded-xl p-8 text-center cursor-pointer hover:border-blue-600" id="d1">
+      <div class="text-4xl">🖼️</div>
+      <p class="font-semibold mt-2">JPG / PNG images yahan drag karo ya click karo</p>
+      <p class="text-sm text-gray-500">Multiple images select kar sakte ho</p>
+      <input id="f1" type="file" accept="image/*" multiple class="hidden">
+    </label>
+    <div id="list1" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3 mt-4"></div>
+    <p id="hint1" class="text-xs text-gray-500 mt-2 hidden">Order badalne ke liye ◀ ▶ dabao ya image ko drag karke chhodo.</p>
+    <div class="flex flex-wrap items-center gap-3 mt-4">
+      <select id="size1" class="border rounded-lg px-3 py-2 text-sm">
+        <option value="a4">A4 page (margin ke saath)</option>
+        <option value="orig">Original image size</option>
+      </select>
+      <button id="go1" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-lg disabled:opacity-40" disabled>PDF Banao &amp; Download</button>
+      <button id="clr1" class="text-blue-600 font-semibold text-sm">Sab hatao</button>
+    </div>
+  </section>
+
+  <!-- TOOL 2 -->
+  <section id="t2" class="tool hidden bg-white border rounded-2xl shadow-sm p-4 sm:p-6">
+    <h2 class="text-xl font-bold mb-3">PDF Compress</h2>
+    <label class="drop block border-2 border-dashed rounded-xl p-8 text-center cursor-pointer hover:border-blue-600" id="d2">
+      <div class="text-4xl">📄</div>
+      <p class="font-semibold mt-2">PDF yahan drag karo ya click karo</p>
+      <input id="f2" type="file" accept="application/pdf" class="hidden">
+    </label>
+    <p id="name2" class="mt-3 text-sm font-semibold"></p>
+    <div class="flex flex-wrap items-center gap-3 mt-3">
+      <select id="lvl2" class="border rounded-lg px-3 py-2 text-sm">
+        <option value="0.9,0.75">Halka compression (better quality)</option>
+        <option value="0.7,0.55" selected>Medium (recommended)</option>
+        <option value="0.5,0.35">Extreme (sabse chhota size)</option>
+      </select>
+      <button id="go2" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg disabled:opacity-40" disabled>Compress Karo</button>
+    </div>
+    <div id="prog2" class="hidden mt-4"><div class="h-2 bg-gray-200 rounded"><div id="bar2" class="h-2 bg-blue-600 rounded" style="width:0"></div></div><p id="ptxt2" class="text-xs text-gray-500 mt-1"></p></div>
+    <div id="res2" class="hidden mt-4 grid grid-cols-3 gap-2 text-center">
+      <div class="bg-gray-100 rounded-xl p-3"><div class="text-xs text-gray-500">Pehle</div><div id="b2" class="font-bold text-lg"></div></div>
+      <div class="bg-green-100 rounded-xl p-3"><div class="text-xs text-gray-500">Baad me</div><div id="a2" class="font-bold text-lg"></div></div>
+      <div class="bg-blue-100 rounded-xl p-3"><div class="text-xs text-gray-500">Bachat</div><div id="s2" class="font-bold text-lg"></div></div>
+      <a id="dl2" class="col-span-3 bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-lg" href="#">Compressed PDF Download Karo</a>
+    </div>
+    <p class="text-xs text-gray-500 mt-3">Note: Compression pages ko images me badal kar hota hai, isliye text select/search nahi hoga.</p>
+  </section>
+
+  <!-- TOOL 3 -->
+  <section id="t3" class="tool hidden bg-white border rounded-2xl shadow-sm p-4 sm:p-6">
+    <h2 class="text-xl font-bold mb-3">Image Background Remover</h2>
+    <label class="drop block border-2 border-dashed rounded-xl p-8 text-center cursor-pointer hover:border-blue-600" id="d3">
+      <div class="text-4xl">✂️</div>
+      <p class="font-semibold mt-2">Image yahan drag karo ya click karo</p>
+      <p class="text-sm text-gray-500">Simple backgrounds (plain color) par best kaam karta hai</p>
+      <input id="f3" type="file" accept="image/*" class="hidden">
+    </label>
+    <div id="work3" class="hidden mt-4">
+      <div class="flex items-center gap-3 text-sm">
+        <span class="font-semibold">Tolerance</span>
+        <input id="tol3" type="range" min="5" max="120" value="40" class="flex-1 max-w-xs">
+        <span id="tv3">40</span>
+      </div>
+      <div class="checker mt-3 rounded-xl overflow-hidden border inline-block max-w-full"><canvas id="cv3" class="max-w-full h-auto block"></canvas></div>
+      <div class="mt-3"><button id="dl3" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-lg">PNG Download Karo</button></div>
+    </div>
+  </section>
+
+  <section class="grid sm:grid-cols-3 gap-4 mt-12 text-center">
+    <div class="p-4 border rounded-xl"><div class="text-3xl">⚡</div><b>Super Fast</b><p class="text-sm text-gray-500">Koi upload ya wait nahi</p></div>
+    <div class="p-4 border rounded-xl"><div class="text-3xl">🔒</div><b>100% Private</b><p class="text-sm text-gray-500">File server pe upload nahi hoti</p></div>
+    <div class="p-4 border rounded-xl"><div class="text-3xl">🆓</div><b>Free &amp; No Watermark</b><p class="text-sm text-gray-500">No signup, no limit</p></div>
+  </section>
+</main>
+
+<footer class="border-t py-6 text-center text-sm text-gray-500">© FastPDF - Made with ❤️ | Sab processing aapke browser me hoti hai</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const fmt = b => b > 1048576 ? (b/1048576).toFixed(2)+' MB' : (b/1024).toFixed(1)+' KB';
+const dl = (blob, name) => { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); };
+const loadImg = src => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+const readURL = f => new Promise(r => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(f); });
+
+// Tabs
+document.querySelectorAll('.tab').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.toggle('tab-on', x === b));
+  document.querySelectorAll('.tool').forEach(s => s.classList.toggle('hidden', s.id !== b.dataset.t));
+});
+
+// Drag & drop helper
+function dropzone(zone, input, cb) {
+  ['dragenter','dragover'].forEach(e => zone.addEventListener(e, ev => { ev.preventDefault(); zone.classList.add('over'); }));
+  ['dragleave','drop'].forEach(e => zone.addEventListener(e, ev => { ev.preventDefault(); zone.classList.remove('over'); }));
+  zone.addEventListener('drop', ev => cb([...ev.dataTransfer.files]));
+  input.onchange = () => { cb([...input.files]); input.value = ''; };
+}
+
+/* ---------- Tool 1: JPG to PDF ---------- */
+let imgs = [], dragIdx = null;
+function render1() {
+  const l = $('list1'); l.innerHTML = '';
+  imgs.forEach((im, i) => {
+    const d = document.createElement('div');
+    d.className = 'relative border rounded-lg overflow-hidden bg-gray-50';
+    d.draggable = true;
+    d.ondragstart = () => dragIdx = i;
+    d.ondragover = e => e.preventDefault();
+    d.ondrop = e => { e.preventDefault(); e.stopPropagation(); if (dragIdx === null) return; const [m] = imgs.splice(dragIdx, 1); imgs.splice(i, 0, m); dragIdx = null; render1(); };
+    d.innerHTML = `<img src="${im.url}" class="w-full h-28 object-cover">
+      <div class="flex justify-between items-center px-1 py-1 text-sm">
+        <button class="px-2 font-bold text-blue-600 disabled:opacity-30" ${i===0?'disabled':''} data-a="l">◀</button>
+        <span class="text-xs text-gray-500">${i+1}</span>
+        <button class="px-2 font-bold text-blue-600 disabled:opacity-30" ${i===imgs.length-1?'disabled':''} data-a="r">▶</button>
+      </div>
+      <button class="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 text-xs" data-a="x">✕</button>`;
+    d.querySelectorAll('button').forEach(b => b.onclick = () => {
+      const a = b.dataset.a;
+      if (a === 'x') imgs.splice(i, 1);
+      else { const j = a === 'l' ? i-1 : i+1; [imgs[i], imgs[j]] = [imgs[j], imgs[i]]; }
+      render1();
+    });
+    l.appendChild(d);
+  });
+  $('go1').disabled = !imgs.length;
+  $('hint1').classList.toggle('hidden', imgs.length < 2);
+}
+async function add1(files) {
+  for (const f of files.filter(f => f.type.startsWith('image/'))) imgs.push({ url: await readURL(f), name: f.name });
+  render1();
+}
+dropzone($('d1'), $('f1'), add1);
+$('clr1').onclick = () => { imgs = []; render1(); };
+$('go1').onclick = async () => {
+  const btn = $('go1'); btn.disabled = true; btn.textContent = 'Ban raha hai...';
+  try {
+    const { jsPDF } = window.jspdf; let pdf = null;
+    for (let i = 0; i < imgs.length; i++) {
+      const im = await loadImg(imgs[i].url);
+      const w = im.naturalWidth, h = im.naturalHeight;
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0,0,w,h); x.drawImage(im,0,0);
+      const data = c.toDataURL('image/jpeg', 0.92);
+      let pw, ph, dx = 0, dy = 0, dw, dh;
+      if ($('size1').value === 'orig') { pw = dw = w; ph = dh = h; }
+      else {
+        const land = w > h; pw = land ? 297 : 210; ph = land ? 210 : 297;
+        const m = 10, s = Math.min((pw-2*m)/w, (ph-2*m)/h);
+        dw = w*s; dh = h*s; dx = (pw-dw)/2; dy = (ph-dh)/2;
+      }
+      const unit = $('size1').value === 'orig' ? 'px' : 'mm';
+      const o = pw > ph ? 'l' : 'p';
+      if (!pdf) pdf = new jsPDF({ unit, format: [pw, ph], orientation: o });
+      else pdf.addPage([pw, ph], o);
+      pdf.addImage(data, 'JPEG', dx, dy, dw, dh);
+    }
+    pdf.save('fastpdf-images.pdf');
+  } catch (e) { alert('Error: ' + e.message); }
+  btn.disabled = false; btn.textContent = 'PDF Banao & Download';
+};
+
+/* ---------- Tool 2: PDF Compress ---------- */
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+let pdfFile = null, outUrl = null;
+function pick2(files) {
+  const f = files.find(f => f.type === 'application/pdf' || /\.pdf$/i.test(f.name));
+  if (!f) return alert('Sirf PDF file chuno');
+  pdfFile = f; $('name2').textContent = f.name + ' (' + fmt(f.size) + ')';
+  $('go2').disabled = false; $('res2').classList.add('hidden');
+}
+dropzone($('d2'), $('f2'), pick2);
+$('go2').onclick = async () => {
+  const [scale, q] = $('lvl2').value.split(',').map(Number);
+  $('go2').disabled = true; $('prog2').classList.remove('hidden'); $('res2').classList.add('hidden');
+  try {
+    const doc = await pdfjsLib.getDocument({ data: await pdfFile.arrayBuffer() }).promise;
+    const { jsPDF } = window.jspdf; let pdf = null;
+    for (let p = 1; p <= doc.numPages; p++) {
+      $('ptxt2').textContent = `Page ${p} / ${doc.numPages}`;
+      $('bar2').style.width = ((p-1)/doc.numPages*100) + '%';
+      const page = await doc.getPage(p);
+      const base = page.getViewport({ scale: 1 });
+      const vp = page.getViewport({ scale: scale * 1.5 }); // ~108-162 dpi
+      const c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
+      const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0,0,c.width,c.height);
+      await page.render({ canvasContext: x, viewport: vp }).promise;
+      const o = base.width > base.height ? 'l' : 'p';
+      if (!pdf) pdf = new jsPDF({ unit: 'pt', format: [base.width, base.height], orientation: o, compress: true });
+      else pdf.addPage([base.width, base.height], o);
+      pdf.addImage(c.toDataURL('image/jpeg', q), 'JPEG', 0, 0, base.width, base.height);
+    }
+    $('bar2').style.width = '100%';
+    const blob = pdf.output('blob');
+    $('b2').textContent = fmt(pdfFile.size); $('a2').textContent = fmt(blob.size);
+    const saved = (1 - blob.size / pdfFile.size) * 100;
+    $('s2').textContent = saved > 0 ? saved.toFixed(0) + '% kam' : 'Koi bachat nahi';
+    if (outUrl) URL.revokeObjectURL(outUrl);
+    outUrl = URL.createObjectURL(blob);
+    $('dl2').href = outUrl; $('dl2').download = 'compressed-' + pdfFile.name;
+    $('res2').classList.remove('hidden');
+    $('ptxt2').textContent = saved > 0 ? 'Ho gaya!' : 'Ye PDF pehle se compressed hai. Extreme level try karo.';
+  } catch (e) { alert('Error: ' + e.message); }
+  $('go2').disabled = false;
+};
+
+/* ---------- Tool 3: Background Remover ---------- */
+let srcImg = null;
+const cv = $('cv3'), cx = cv.getContext('2d', { willReadFrequently: true });
+async function pick3(files) {
+  const f = files.find(f => f.type.startsWith('image/')); if (!f) return;
+  srcImg = await loadImg(await readURL(f));
+  $('work3').classList.remove('hidden'); run3();
+}
+dropzone($('d3'), $('f3'), pick3);
+$('tol3').oninput = e => { $('tv3').textContent = e.target.value; run3(); };
+function run3() {
+  const k = Math.min(1, 1400 / Math.max(srcImg.naturalWidth, srcImg.naturalHeight));
+  const w = cv.width = Math.round(srcImg.naturalWidth * k), h = cv.height = Math.round(srcImg.naturalHeight * k);
+  cx.clearRect(0,0,w,h); cx.drawImage(srcImg, 0, 0, w, h);
+  const id = cx.getImageData(0,0,w,h), d = id.data;
+  // average the 4 corner colors as background reference
+  const pts = [[0,0],[w-1,0],[0,h-1],[w-1,h-1]]; let r=0,g=0,b=0;
+  pts.forEach(([x,y]) => { const i=(y*w+x)*4; r+=d[i]; g+=d[i+1]; b+=d[i+2]; });
+  r/=4; g/=4; b/=4;
+  const tol = +$('tol3').value, tol2 = tol*tol*3;
+  const near = i => { const dr=d[i]-r, dg=d[i+1]-g, db=d[i+2]-b; return dr*dr+dg*dg+db*db <= tol2; };
+  const seen = new Uint8Array(w*h), stack = [];
+  const push = (x,y) => { const p=y*w+x; if (!seen[p] && near(p*4)) { seen[p]=1; stack.push(p); } };
+  for (let x=0;x<w;x++){ push(x,0); push(x,h-1); }
+  for (let y=0;y<h;y++){ push(0,y); push(w-1,y); }
+  while (stack.length) {
+    const p = stack.pop(), x = p % w, y = (p - x) / w;
+    if (x>0) push(x-1,y); if (x<w-1) push(x+1,y);
+    if (y>0) push(x,y-1); if (y<h-1) push(x,y+1);
+  }
+  for (let p=0;p<w*h;p++) if (seen[p]) d[p*4+3] = 0;
+  cx.putImageData(id, 0, 0);
+}
+$('dl3').onclick = () => cv.toBlob(b => dl(b, 'fastpdf-no-bg.png'), 'image/png');
+</script>
+</body>
+</html>
